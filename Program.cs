@@ -1,64 +1,73 @@
-﻿using AdvancedC_.EmployeeComparers;
-
-namespace AdvancedC_
+﻿namespace AssignmentADV03
 {
+    public delegate string UserDefinedDelegateForLibrary(Book book);
     internal class Program
     {
         static void Main(string[] args)
         {
-            //int A = 10, B = 20;
-            //Console.WriteLine($"A = {A} , B = {B}");
-            //Helper<int>.Swap(ref A, ref B);
-            //Console.WriteLine($"A = {A} , B = {B}");
-
-            //decimal A = 1.2m, B = 20.8m;
-            //Console.WriteLine($"A = {A} , B = {B}");
-            ////Type Safety
-            //Helper.Swap(ref A, ref B);
-            //Console.WriteLine($"A = {A} , B = {B}");
-
-            //Point A = new Point(1, 2), B = new Point(5, 6);
-            //Console.WriteLine($"A = {A} , B = {B}");
-            //Helper.Swap(ref A, ref B);
-            //Console.WriteLine($"A = {A} , B = {B}");
-
-            //int[] numbers = { 9,6, 3, 4, 5, 8, 7, 6, 1 };
-            ////int index = Helper.SearchArray(numbers, 5);
-            ////Console.WriteLine(index);
-            //Helper<int>.SortArray(numbers);
-            //foreach (int number in numbers)
-            //{
-            //    Console.WriteLine(number);
-            //}
-
-            //Point point01 = new Point();
-            //Point point02 = new Point();
-
-            //if(point01 == point02)
-            //    Console.WriteLine();
-
-            Employee[] employees =
+            #region Considering the Code Below, Write Down the Body of all Listed Methods and Properties and Constructor:
+            List<Book> Books = new List<Book>()
             {
-                    new Employee(){ Id = 4, Name = "Ahmed", Salary = 2000 },
-                    new Employee(){ Id = 2, Name = "Mohamed", Salary = 15000 },
-                    new Employee(){ Id = 1, Name = "Aya", Salary = 9000 }
+                   {new Book("123", "C# Programming", new string[] { "Mohamed", "Ahmed" }, DateTime.Now, 1000) },
+                   { new Book("124", "C++ Programming", new string[] { "Fares", "Nada" }, DateTime.Now, 2500) },
+                   { new Book("125", "C Programming", new string[] { "Heba", "Omar" }, DateTime.Now, 850) },
+                   { new Book("126", "Java Programming", new string[] { "Nadeen", "Aya" }, DateTime.Now, 3300) },
+                   { new Book("127", "Phyton Programming", new string[] { "Rokaia", "Ali" }, DateTime.Now, 5500) }
             };
 
-            Helper<Employee>.SortArray(employees , new EmployeeIComparerId());
-            foreach (Employee employee in employees)
-            {
-                Console.WriteLine(employee);
-            }
+            #region Create User Defined Delegate with the same signature of methods existed in Bookfunctions class.
 
-            //int index = Helper<Employee>.SearchArray(employees, new Employee { Id = 2, Name = "Ahmed", Salary = 10000 }, new EmployeeComparerById());
-            //Console.WriteLine(index);
+            //UserDefinedDelegateForLibrary BookMethods = BookFunctions.GetTitle;
+            ////LibraryEngine.ProcessBooks(Books, BookMethods);
 
-            //int inde = Helper<Employee>.SearchArray(employees, new Employee { Id = 1, Name = "Mohamed", Salary = 15000 }, new EmployeeComparerByName());
-            //Console.WriteLine(inde);
+            ////BookMethods += BookFunctions.GetAuthors;
+            ////LibraryEngine.ProcessBooks(Books, BookMethods);
 
-            //if(employees[0].CompareTo(10)
-            //     Console.WriteLine("Not Found"); ;
+            //BookMethods += BookFunctions.GetPrice;
+            //LibraryEngine.ProcessBooks(Books, BookMethods); 
+            #endregion
+
+            #region Use the Proper build in delegate.
+
+            //Func<Book,string> func = BookFunctions.GetTitle;
+            ////LibraryEngine.ProcessBooks(Books, func);
+
+            //func += BookFunctions.GetAuthors;
+            ////LibraryEngine.ProcessBooks(Books, func);
+
+            //LibraryEngine.ProcessBooks(Books, BookFunctions.GetPrice);
+            #endregion
+
+            #region Anonymous Method (GetISBN)
+
+            //Func <Book,string> func = delegate (Book book)
+            //{
+            //    return book.ISBN!;
+
+            //};
+            //foreach (Book B in Books)
+            //    Console.WriteLine(func.Invoke(B));
+            #endregion
+
+            #region Lambda Expression (Get PublicationDate)
+            //foreach (Book B in Books)
+            //    Console.WriteLine(GetPublicationDate(B));
+                
+            #endregion
+            #endregion
+
+            #region Part 03:We need to Implement the List methods from scratch with all overloads.
+
+            List<int> list = [1, 2, 3, 4, 5];
+            bool isExsist = ListMethods.Exist(Books, (b) => b.Price == 2000);
+            Console.WriteLine(isExsist);
+            bool flag = ListMethods.TrueForAll(Books, b => b.Title == "C#");
+            #endregion
         }
-    }
-}
 
+        public static DateTime? GetPublicationDate(Book book) => book.PublicationDate;
+    }
+
+        
+    
+}
